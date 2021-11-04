@@ -1,11 +1,12 @@
 #!groovy
-properties([
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
-        disableConcurrentBuilds()
+properties([disableConcurrentBuilds()])
     ])
 node ("master") {
       timestamps {
-      
+      properties([
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+              
+    ])
          stage("docker login") {
             
                 echo " ============== docker login =================="
