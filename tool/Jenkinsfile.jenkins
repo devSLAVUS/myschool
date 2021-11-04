@@ -9,7 +9,7 @@ node ("master") {
         
     ])
          stage("docker login") {
-            steps {
+            
                 echo " ============== docker login =================="
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
@@ -19,35 +19,31 @@ node ("master") {
                     docker login -u $USERNAME -p $PASSWORD
                     """
                 }
-            }
+            
         
     stage("docker build") {
-            steps {
+            
             echo " ============== start building image =================="
                 dir ('django_school/') {
                 	sh 'docker build -t devslavus/myschool:latest . '
                 }
-            }
         }
    stage("docker push") {
-            steps {
                 echo " ============== start pushing image =================="
                 sh '''
                 docker push devslavus/myschool:latest
                 '''
             }
-        }
+        
    stage('del image') {
-            steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 sh '''
                 ssh -t root@prodstage "hostname; docker login --username $USERNAME --password $PASSWORD; docker stop myschool; docker rm myschool; docker image prune -f"
                 '''
-                }
+                
             } 
    }
    stage("run docker") {
-            steps {
                 echo " ============== prepare host =================="
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh "chmod +x -R ${env.WORKSPACE}"
@@ -59,7 +55,7 @@ node ("master") {
                     echo $PASSWORD
                     ssh -t root@prodstage "hostname; docker login --username $USERNAME --password $PASSWORD; docker pull devslavus/myschool; docker run --name myschool -d -p 80:80 devslavus/myschool:latest"
                 '''
-                }
+                
                     }
                 }
             }
