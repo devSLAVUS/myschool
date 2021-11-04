@@ -3,10 +3,10 @@
 properties([disableConcurrentBuilds()])
 
 node ("master") {
-      options {
+      properties( [
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
-    }
+    ])
          stage("docker login") {
             steps {
                 echo " ============== docker login =================="
