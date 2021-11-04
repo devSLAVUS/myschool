@@ -2,15 +2,11 @@
 // Check ds1 properties
 properties([disableConcurrentBuilds()])
 
-pipeline {
-    agent { 
-        label 'master'
-        }
-    options {
+node ("master") {
+      options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
-    stages {
          stage("docker login") {
             steps {
                 echo " ============== docker login =================="
@@ -23,8 +19,8 @@ pipeline {
                     """
                 }
             }
-        }
-        stage("docker build") {
+        
+    stage("docker build") {
             steps {
             echo " ============== start building image =================="
                 dir ('django_school/') {
