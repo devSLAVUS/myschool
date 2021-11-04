@@ -63,7 +63,7 @@ node ("master") {
                 }
             }
         }
-}
+
 def notifyStarted() {
   // send to email
   emailext (
