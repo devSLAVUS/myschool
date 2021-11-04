@@ -1,5 +1,14 @@
 #!groovy
 properties([disableConcurrentBuilds()])
+def get_mail() {
+    node('master'){
+        USER_MAIL = wrap([$class: 'BuildUser']) {
+            return env.BUILD_USER_EMAIL
+        }
+    }
+}
+
+def USER_MAIL = get_mail()
   
 node ("master") {
   checkout scm
@@ -52,8 +61,6 @@ node ("master") {
                         
                 sh '''
                 ssh root@prodstage 'bash -s' < install.sh    
-                    echo $USERNAME 
-                    echo $PASSWORD
                     ssh -t root@prodstage "hostname; docker pull devslavus/myschool; docker run --name myschool -d -p 80:80 devslavus/myschool:latest"
                 '''
                     }
@@ -62,13 +69,5 @@ node ("master") {
                 }
             }
         
-def notifyStarted() {
-  // send to email
-  emailext (
-      subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-      body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-        <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-      recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-    )
-}
+
 
