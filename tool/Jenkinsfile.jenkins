@@ -57,7 +57,9 @@ node ("master") {
                     echo $PASSWORD
                     ssh -t root@prodstage "hostname; docker pull devslavus/myschool; docker run --name myschool -d -p 80:80 devslavus/myschool:latest"
                 '''
-                def notifyStarted() {
+                    }
+  
+  def notifyStarted() {
   // send to email
   emailext (
       subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
