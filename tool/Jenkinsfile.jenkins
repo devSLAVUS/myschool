@@ -1,6 +1,6 @@
 #!groovy
 properties([disableConcurrentBuilds()])
-    ])
+  
 node ("master") {
       timestamps {
       properties([
