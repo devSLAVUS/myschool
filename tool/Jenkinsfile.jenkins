@@ -39,7 +39,7 @@ node ("master") {
             echo " ============== scan image =================="
             sh "chmod +x -R ${env.WORKSPACE}"
             dir ('tool/') {   
-            sh "docker scan devslavus/myschool:latest > coverage/drep.html"
+            sh "docker scan --reject-license devslavus/myschool:latest > coverage/drep.html"
               
              // HTML Publisher report
                 publishHTML (target :
