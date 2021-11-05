@@ -1,6 +1,6 @@
 !#/bin/bash
 post="200"
-zapros=`curl -I http://188.225.87.154/ | awk 'NR == 1{print$2}'`
+zapros=`curl -I http://$PROD/ | awk 'NR == 1{print$2}'`
 echo $zapros
 if [ -n "$zapros" ]
 then
