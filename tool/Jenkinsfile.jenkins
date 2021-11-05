@@ -72,6 +72,7 @@ node ("master") {
                 sh '''
                 ssh root@prodstage 'bash -s' < install.sh    
                     ssh -t root@prodstage "hostname; docker pull devslavus/myschool; docker run --name myschool -d -p 80:80 devslavus/myschool:latest"
+                    sleep 5
                 '''
                 }
             }    
