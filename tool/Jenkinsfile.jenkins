@@ -49,7 +49,16 @@ node ("master") {
             sh '''
             ./docker_scan.sh
             '''
-              
+            cucumber buildStatus: 'UNSTABLE',
+                reportTitle: 'JSON report',
+                fileIncludePattern: 'coverage/dreport.json',
+                trendsLimit: 10,
+                classifications: [
+                    [
+                        'key': 'Browser',
+                        'value': 'Firefox'
+                    ]
+                ]  
              // HTML Publisher report
                 publishHTML (target :
                 [allowMissing: false,
