@@ -21,7 +21,7 @@ node ("master") {
             }        
         stage("test build") {
             echo " ============== test build =================="
-            dir ('django_school/') {
+            dir ('tool/') {
             sh '''
             ./djangotest.sh
             '''
