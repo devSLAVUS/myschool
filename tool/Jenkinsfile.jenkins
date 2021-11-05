@@ -35,7 +35,23 @@ node ("master") {
             sh 'docker build -t devslavus/myschool:latest . '
                 }
             }
-        stage("docker push") {
+          stage ("scan image"){
+            echo " ============== scan image =================="
+            sh "chmod +x -R ${env.WORKSPACE}"
+            dir ('tool/') {   
+            sh "docker scan devslavus/myschool:latest > coverage/drep.html"
+              
+             // HTML Publisher report
+                publishHTML (target :
+                [allowMissing: false,
+                alwaysLinkToLastBuild: false,
+                keepAll: true,
+                reportDir: 'coverage',
+                reportFiles: 'drep.html',
+                reportName: "HTML Publisher Report"])
+           }
+          }
+          stage("docker push") {
             echo " ============== start pushing image =================="
             sh '''
             docker push devslavus/myschool:latest
