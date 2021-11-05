@@ -59,14 +59,6 @@ node ("master") {
                         'value': 'Firefox'
                     ]
                 ]  
-             // HTML Publisher report
-                publishHTML (target :
-                [allowMissing: false,
-                alwaysLinkToLastBuild: false,
-                keepAll: true,
-                reportDir: 'coverage',
-                reportFiles: 'dreport.html',
-                reportName: "docker scan report"])
            }
           } 
         stage('del image') {
