@@ -54,8 +54,8 @@ node ("master") {
                 [allowMissing: false,
                 alwaysLinkToLastBuild: false,
                 keepAll: true,
-                reportDir: 'coverage',
-                reportFiles: 'index.html',
+                reportDir: 'tool',
+                reportFiles: 'rep.html',
                 reportName: "HTML Publisher Report"])
             }                   
         }
