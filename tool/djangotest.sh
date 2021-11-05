@@ -11,7 +11,7 @@ then
 else
    echo $name" not installed"
    apt update
-   apt-get install python3-venv
+   apt-get install -y python3-venv
 fi
 python3 -m venv env
 source ./env/bin/activate
