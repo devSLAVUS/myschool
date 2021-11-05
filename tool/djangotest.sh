@@ -1,5 +1,5 @@
 #!/bin/bash
-cd myschool/django_school/
+cd /myschool/django_school/
 
 pwd
 ls
