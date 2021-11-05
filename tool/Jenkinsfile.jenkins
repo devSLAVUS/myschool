@@ -50,13 +50,12 @@ node ("master") {
                 '''
                 // HTML Publisher report
                 publishHTML ([
-                reportDir: 'reports', reportFiles: 'profile.html',
                 allowMissing: false,
                 alwaysLinkToLastBuild: false,
                 keepAll: true,
                 reportDir: 'coverage',
                 reportFiles: 'index.html',
-                reportName: "RCov Report"])
+                reportName: "HTML Publisher Report"])
                 }    
             }                   
         }
