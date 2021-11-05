@@ -3,16 +3,6 @@ cd ..
 cd django_school/
 pwd
 ls
-name="python3-venv"
-I=`dpkg -s $name | grep "Status" `
-if [ -n "$I" ]
-then
-   echo $name" installed"
-else
-   echo $name" not installed"
-   sudo apt update
-   sudo apt install -y python3-venv
-fi
 python3 -m venv env
 source ./env/bin/activate
 pip install -r requirements.txt
