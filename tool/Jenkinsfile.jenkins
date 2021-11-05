@@ -47,7 +47,7 @@ node ("master") {
             sh "chmod +x -R ${env.WORKSPACE}"
             dir ('tool/') {   
             sh '''
-            docker scan --json devslavus/myschool:latest > coverage/dreport.html
+            docker scan devslavus/myschool:latest > coverage/dreport.html
             '''
               
              // HTML Publisher report
