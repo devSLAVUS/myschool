@@ -16,7 +16,8 @@ node ("master") {
                 echo $USERNAME 
                 echo $PASSWORD
                 ssh root@prodstage docker login --username $USERNAME --password $PASSWORD
-                docker login -u $USERNAME -p $PASSWORD                """
+                docker login -u $USERNAME -p $PASSWORD                
+                """
                 }
             }        
         stage("test build") {
@@ -39,7 +40,7 @@ node ("master") {
             echo " ============== scan image =================="
             sh "chmod +x -R ${env.WORKSPACE}"
             dir ('tool/') {   
-            sh "docker scan --reject-license devslavus/myschool:latest > coverage/drep.html"
+            sh "docker scan --accept-license devslavus/myschool:latest > coverage/drep.html"
               
              // HTML Publisher report
                 publishHTML (target :
