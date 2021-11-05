@@ -25,9 +25,9 @@ node ("master") {
             dir ('tool/') {
             sh '''
             ./djangotest.sh
-            '''
-            cobertura coberturaReportFile: 'reports/coverage.xml'    
+            '''    
                 }
+            cobertura coberturaReportFile: 'django_school/reports/coverage.xml'
         }
         stage("docker build") {
             echo " ============== start building image =================="
