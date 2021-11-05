@@ -46,9 +46,9 @@ node ("master") {
             echo " ============== scan image =================="
             sh "chmod +x -R ${env.WORKSPACE}"
             dir ('tool/') {   
-            sh '''
+            sh """
             ./docker_scan.sh
-            '''
+            """
             publishHTML (target : 
                 [allowMissing: false,
                 alwaysLinkToLastBuild: false,
