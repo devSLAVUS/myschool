@@ -1,5 +1,6 @@
 !#/bin/bash
 post="200"
+echo $PROD
 zapros=`curl -I $PROD | awk 'NR == 1{print$2}'`
 echo $zapros
 if [ -n "$zapros" ]
