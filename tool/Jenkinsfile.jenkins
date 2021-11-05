@@ -48,7 +48,16 @@ node ("master") {
                 ssh root@prodstage 'bash -s' < install.sh    
                     ssh -t root@prodstage "hostname; docker pull devslavus/myschool; docker run --name myschool -d -p 80:80 devslavus/myschool:latest"
                 '''
-              
+                // HTML Publisher report
+                publishHTML ([
+                reportDir: 'reports', reportFiles: 'profile.html',
+                allowMissing: false,
+                alwaysLinkToLastBuild: false,
+                keepAll: true,
+                reportDir: 'coverage',
+                reportFiles: 'index.html',
+                reportName: "RCov Report"])
+                }
                 }    
             }                   
         }
