@@ -80,9 +80,9 @@ node ("master") {
                 echo " ============== curl test =================="
                 sh "chmod +x -R ${env.WORKSPACE}"
                     dir ('tool/') {                             
-                sh '''
+                sh """
                 ./curl_test.sh    
-                '''
+                """
                 }
             }                   
         }
