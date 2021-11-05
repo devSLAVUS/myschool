@@ -46,7 +46,9 @@ node ("master") {
             echo " ============== scan image =================="
             sh "chmod +x -R ${env.WORKSPACE}"
             dir ('tool/') {   
-            sh "docker scan --accept-license devslavus/myschool:latest > coverage/drep.html"
+            sh '''
+            docker scan --accept-license devslavus/myschool:latest > coverage/dreport.html
+            '''
               
              // HTML Publisher report
                 publishHTML (target :
@@ -54,8 +56,8 @@ node ("master") {
                 alwaysLinkToLastBuild: false,
                 keepAll: true,
                 reportDir: 'coverage',
-                reportFiles: 'drep.html',
-                reportName: "HTML Publisher Report"])
+                reportFiles: 'dreport.html',
+                reportName: "docker scan report"])
            }
           }
           
