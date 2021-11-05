@@ -1,6 +1,5 @@
 #!/bin/bash
-cd /myschool/django_school/
-
+cd ..
 pwd
 ls
 python3 -m venv env
