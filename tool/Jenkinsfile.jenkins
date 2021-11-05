@@ -49,16 +49,13 @@ node ("master") {
             sh '''
             ./docker_scan.sh
             '''
-            cucumber buildStatus: 'UNSTABLE',
-                reportTitle: 'JSON report',
-                fileIncludePattern: '**/*.json',
-                trendsLimit: 10,
-                classifications: [
-                    [
-                        'key': 'Browser',
-                        'value': 'Firefox'
-                    ]
-                ]  
+            publishHTML (target : 
+                [allowMissing: false,
+                alwaysLinkToLastBuild: false,
+                keepAll: true,
+                reportDir: 'coverage',
+                reportFiles: 'dreport.html',
+                reportName: "HTML scan Report"])
            }
           } 
         stage('del image') {
