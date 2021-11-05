@@ -10,8 +10,8 @@ then
    echo $name" installed"
 else
    echo $name" not installed"
-   apt update
-   apt-get install -y python3-venv
+   sudo apt update
+   sudo apt install -y python3-venv
 fi
 python3 -m venv env
 source ./env/bin/activate
