@@ -26,6 +26,7 @@ node ("master") {
             sh '''
             ./djangotest.sh
             '''
+            cobertura coberturaReportFile: 'path-to/coverage.xml'    
                 }
         }
         stage("docker build") {
