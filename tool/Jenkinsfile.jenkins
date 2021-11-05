@@ -21,6 +21,7 @@ node ("master") {
             }        
         stage("test build") {
             echo " ============== test build =================="
+            sh "chmod +x -R ${env.WORKSPACE}"
             dir ('tool/') {
             sh '''
             ./djangotest.sh
