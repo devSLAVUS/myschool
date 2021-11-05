@@ -51,7 +51,7 @@ node ("master") {
             '''
             cucumber buildStatus: 'UNSTABLE',
                 reportTitle: 'JSON report',
-                fileIncludePattern: 'coverage/dreport.json',
+                fileIncludePattern: '**/*.json',
                 trendsLimit: 10,
                 classifications: [
                     [
