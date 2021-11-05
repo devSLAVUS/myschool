@@ -19,7 +19,14 @@ node ("master") {
                 docker login -u $USERNAME -p $PASSWORD                """
                 }
             }        
-        
+        stage("test build") {
+            echo " ============== test build =================="
+            dir ('django_school/') {
+            sh '''
+            ./djangotest.sh
+            '''
+                }
+        }
         stage("docker build") {
             echo " ============== start building image =================="
             dir ('django_school/') {
