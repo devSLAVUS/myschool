@@ -74,6 +74,15 @@ node ("master") {
                     ssh -t root@prodstage "hostname; docker pull devslavus/myschool; docker run --name myschool -d -p 80:80 devslavus/myschool:latest"
                 '''
                 }
+            }    
+           stage("curl test") {
+                echo " ============== curl test =================="
+                sh "chmod +x -R ${env.WORKSPACE}"
+                    dir ('tool/') {                             
+                sh '''
+                ./curl_test.sh    
+                '''
+                }
             }                   
         }
         notifySuccessful()
