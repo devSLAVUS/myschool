@@ -35,14 +35,7 @@ node ("master") {
             dir ('django_school/') {
             sh 'docker build -t devslavus/myschool:latest . '
                 }
-            }
-          stage("docker push") {
-            echo " ============== start pushing image =================="
-            sh '''
-            docker push devslavus/myschool:latest
-            '''
-            }
-         stage ("scan image"){
+       stage ("scan image"){
             echo " ============== scan image =================="
             sh "chmod +x -R ${env.WORKSPACE}"
             dir ('tool/') {   
@@ -59,7 +52,14 @@ node ("master") {
                 reportFiles: 'dreport.html',
                 reportName: "docker scan report"])
            }
-          }
+          }     
+            }
+          stage("docker push") {
+            echo " ============== start pushing image =================="
+            sh '''
+            docker push devslavus/myschool:latest
+            '''
+            }
           
         stage('del image') {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
