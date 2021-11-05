@@ -47,7 +47,7 @@ node ("master") {
             sh "chmod +x -R ${env.WORKSPACE}"
             dir ('tool/') {   
             sh '''
-            ./dr.sh
+            ./docker_scan.sh
             '''
               
              // HTML Publisher report
