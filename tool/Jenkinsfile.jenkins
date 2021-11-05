@@ -1,86 +1,95 @@
 #!groovy
-properties([disableConcurrentBuilds()])
+properties([
+    disableConcurrentBuilds()
+    buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+    ])
   
-node ("master") {
+node ("master") {    
+  try {
   notifyStarted()
   checkout scm
-
       timestamps {
-      properties([
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
-              
-    ])
-         stage("docker login") {
-            
-                echo " ============== docker login =================="
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh """
-                    echo $USERNAME 
-                    echo $PASSWORD
-                    ssh root@prodstage docker login --username $USERNAME --password $PASSWORD
-                    docker login -u $USERNAME -p $PASSWORD
-                    """
+        stage("docker login") {    
+            echo " ============== docker login =================="
+            withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                sh """
+                echo $USERNAME 
+                echo $PASSWORD
+                ssh root@prodstage docker login --username $USERNAME --password $PASSWORD
+                docker login -u $USERNAME -p $PASSWORD                """
                 }
-            
+            }        
         
-    stage("docker build") {
-            
+        stage("docker build") {
             echo " ============== start building image =================="
-                dir ('django_school/') {
-                	sh 'docker build -t devslavus/myschool:latest . '
+            dir ('django_school/') {
+            sh 'docker build -t devslavus/myschool:latest . '
                 }
-        }
-   stage("docker push") {
-                echo " ============== start pushing image =================="
-                sh '''
-                docker push devslavus/myschool:latest
-                '''
+            }
+        stage("docker push") {
+            echo " ============== start pushing image =================="
+            sh '''
+            docker push devslavus/myschool:latest
+            '''
             }
         
-   stage('del image') {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+        stage('del image') {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 sh '''
                 ssh -t root@prodstage "hostname; docker stop myschool; docker rm myschool; docker image prune -f"
                 '''
-                
-            } 
-   }
-   stage("run docker") {
+                } 
+            }
+        stage("run docker") {
                 echo " ============== prepare host =================="
-               
                 sh "chmod +x -R ${env.WORKSPACE}"
-                    dir ('tool/') {     
-                        
+                    dir ('tool/') {                             
                 sh '''
                 ssh root@prodstage 'bash -s' < install.sh    
                     ssh -t root@prodstage "hostname; docker pull devslavus/myschool; docker run --name myschool -d -p 80:80 devslavus/myschool:latest"
                 '''
-        publishHTML ([
-        reportDir: 'reports', reportFiles: 'profile.html',
-        allowMissing: false,
-        alwaysLinkToLastBuild: false,
-        keepAll: true,
-        reportDir: 'coverage',
-        reportFiles: 'index.html',
-        reportName: "RCov Report"
-      ])
-                    }
-  
-  }                   }
-                }
-            }
-
+                publishHTML ([
+                reportDir: 'reports', reportFiles: 'profile.html',
+                allowMissing: false,
+                alwaysLinkToLastBuild: false,
+                keepAll: true,
+                reportDir: 'coverage',
+                reportFiles: 'index.html',
+                reportName: "RCov Report"])
+                }    
+            }                   
+        }
+        notifySuccessful()
+  }
+  //catch error build
+  catch (e) {
+    currentBuild.result = "FAILED"
+    notifyFailed()
+    throw e
+  }
+}
+// send to email functions
 def notifyStarted() {
-// send to email
-emailext (
-      subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-      body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-       <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-       recipientProviders: [requestor()]
+    emailext (
+    subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+    body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+    <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+    recipientProviders: [requestor()]
     )
 }
-
-
-
-
-
+def notifySuccessful() {
+    emailext (
+    subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+    body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+    <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+    recipientProviders: [requestor()]
+    )
+}
+def notifyFailed() {
+    emailext (
+    subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+    body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+    <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+    recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+    )
+}
