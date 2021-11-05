@@ -36,7 +36,13 @@ node ("master") {
             sh 'docker build -t devslavus/myschool:latest . '
                 }
             }
-          stage ("scan image"){
+          stage("docker push") {
+            echo " ============== start pushing image =================="
+            sh '''
+            docker push devslavus/myschool:latest
+            '''
+            }
+         stage ("scan image"){
             echo " ============== scan image =================="
             sh "chmod +x -R ${env.WORKSPACE}"
             dir ('tool/') {   
@@ -52,13 +58,7 @@ node ("master") {
                 reportName: "HTML Publisher Report"])
            }
           }
-          stage("docker push") {
-            echo " ============== start pushing image =================="
-            sh '''
-            docker push devslavus/myschool:latest
-            '''
-            }
-        
+          
         stage('del image') {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 sh '''
