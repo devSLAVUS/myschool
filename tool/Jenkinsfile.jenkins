@@ -49,8 +49,8 @@ node ("master") {
                     ssh -t root@prodstage "hostname; docker pull devslavus/myschool; docker run --name myschool -d -p 80:80 devslavus/myschool:latest"
                 '''
                 // HTML Publisher report
-                publishHTML ([
-                allowMissing: false,
+                publishHTML (target :
+                [allowMissing: false,
                 alwaysLinkToLastBuild: false,
                 keepAll: true,
                 reportDir: 'coverage',
