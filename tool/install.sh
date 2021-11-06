@@ -36,7 +36,8 @@ then
       add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
       apt update
       apt install -y docker-ce docker-ce-cli
-      systemctl start docker.service
+      sleep 2
+      systemctl restart docker.service
    fi
 elif [ "$XS" = "$ubrel" ]
 then
@@ -53,7 +54,8 @@ then
       add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
       apt update
       apt install -y docker-ce docker-ce-cli
-      systemctl start docker.service
+      sleep 2
+      systemctl restart docker.service
    fi
 else
    echo "unknown system ERROR use ubuntu or debian"
