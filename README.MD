@@ -18,14 +18,19 @@
  
 ## Используемые плагины jenkins  
 К стандартным рекомендованым плагинам jenkins'a версии 2.303.3 дополнительно установлены:  
-* Cobertura Plugin
-* Violations plugin
-* Email Extension Plugin
-* HTML Publisher plugin
+* Cobertura Plugin - для проверки покрытия кода
+* Email Extension Plugin - для отправки уведомлений на почту
+* HTML Publisher plugin - для создания отчета о безопасности образа
 ## Запуск задачи jenkins
 1. Для запуска задачи необходимо создать новый item, тип pipline  
 1. Указать репозиторий, в моем случае https://github.com/devSLAVUS/myschool.git
 1. Указать учетные данные, если репозиторий приватный
 1. Указать ветку `*/master`
 1. Путь к скрипту `tool/Jenkinsfile.jenkins`
-## Отправка писем
+## Отправка писем  
+Скрипт умеет отпралять письма на почту  
+Для этого необходимо в настройках системы jenkins'a в пунктах *Extended E-mail Notification* и *Уведомление почтой*  
+прописать настройки вашего smtp сервера, я использовал сервер яндекса.
+
+
+
