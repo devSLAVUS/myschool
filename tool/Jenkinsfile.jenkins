@@ -10,11 +10,10 @@ node ("master") {
   checkout scm
       timestamps {
         stage("docker login") {    
-            echo " ============== docker login =================="
+            echo " ============== docker login and install requirements packets =================="
             withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh """
-                echo $USERNAME 
-                echo $PASSWORD
+                ssh root@prodstage 'bash -s' < install.sh   
                 ssh root@prodstage docker login --username $USERNAME --password $PASSWORD
                 docker login -u $USERNAME -p $PASSWORD                
                 """
