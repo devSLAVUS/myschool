@@ -22,4 +22,10 @@
 * Violations plugin
 * Email Extension Plugin
 * HTML Publisher plugin
-
+## Запуск задачи jenkins
+1. Для запуска задачи необходимо создать новый item, тип pipline  
+1. Указать репозиторий, в моем случае https://github.com/devSLAVUS/myschool.git
+1. Указать учетные данные, если репозиторий приватный
+1. Указать ветку `*/master`
+1. Путь к скрипту `tool/Jenkinsfile.jenkins`
+## Отправка писем
