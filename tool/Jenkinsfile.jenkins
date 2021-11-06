@@ -46,9 +46,7 @@ node ("master") {
             echo " ============== scan image =================="
             sh "chmod +x -R ${env.WORKSPACE}"
             dir ('tool/') {   
-            sh """
-            ./docker_scan.sh
-            """
+            sh "./docker_scan.sh"
             publishHTML (target : 
                 [allowMissing: false,
                 alwaysLinkToLastBuild: false,
@@ -80,9 +78,7 @@ node ("master") {
                 echo " ============== curl test =================="
                 sh "chmod +x -R ${env.WORKSPACE}"
                     dir ('tool/') {                             
-                sh """
-                ./curl_test.sh    
-                """
+                sh "./curl_test.sh"
                 }
             }                   
         }
