@@ -67,8 +67,7 @@ node ("master") {
                 echo " ============== prepare host =================="
                 sh "chmod +x -R ${env.WORKSPACE}"
                     dir ('tool/') {                             
-                sh '''
-                ssh root@prodstage 'bash -s' < install.sh    
+                sh '''  
                     ssh -t root@prodstage "hostname; docker pull devslavus/myschool; docker run --name myschool -d -p 80:80 devslavus/myschool:latest"
                     sleep 5
                 '''
