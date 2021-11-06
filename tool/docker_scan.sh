@@ -3,3 +3,4 @@ echo $DTOKEN
 docker scan --login --token $DTOKEN
 docker scan --accept-license devslavus/myschool:latest > coverage/dreport.txt
 sleep 10
+txt2html 1coverage/dreport.txt > coverage/dreport.html
