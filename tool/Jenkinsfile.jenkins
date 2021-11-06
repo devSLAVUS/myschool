@@ -54,7 +54,7 @@ node ("master") {
                 alwaysLinkToLastBuild: false,
                 keepAll: true,
                 reportDir: 'coverage',
-                reportFiles: 'dreport.html',
+                reportFiles: 'dreport.txt',
                 reportName: "HTML scan Report"])
            }
           } 
