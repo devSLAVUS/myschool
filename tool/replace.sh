@@ -54,6 +54,7 @@ export COOKIE_JAR=/tmp/cookies
 echo "JENKINS_URL=http://$ipserv:8080" >> /etc/environment.d/jenenv.conf
 echo "JENKINS_USER=$user" >> /etc/environment.d/jenenv.conf
 echo "JENKINS_TOKEN=$apikey" >> /etc/environment.d/jenenv.conf
+echo "$PROD=$IP_PROD" >> /etc/environment.d/jenenv.conf
 source /etc/environment.d/jenenv.conf
 
 JENKINS_CRUMB=$(curl --silent --cookie-jar $COOKIE_JAR -u $JENKINS_USER:$JENKINS_TOKEN $JENKINS_URL'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)')
