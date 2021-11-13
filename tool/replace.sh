@@ -36,7 +36,7 @@ echo "DOCKER_HUB_REPO=$DOCKER_HUB_REPO" > /etc/environment.d/jenenv.conf
 echo "IMAGE_NAME=$IMAGE_NAME" >> /etc/environment.d/jenenv.conf
 echo "ip prodserver"
 read IP_PROD
-echo "$IP_PROD $IP_PROD" >> /etc/hosts
+echo "$IP_PROD prodstage" >> /etc/hosts
 echo "docker_user"
 read docker_user
 echo "docker pass"
