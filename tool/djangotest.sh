@@ -1,6 +1,7 @@
 #!/bin/bash
-pwd
-cd django_school/
+source /etc/environment.d/jenenv.conf
+cd ..
+cd $MAIN_DIR/
 pwd
 ls
 python3 -m venv env
