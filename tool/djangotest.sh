@@ -1,5 +1,5 @@
 #!/bin/bash
-cd $MAIN_DIR/
+cd /root/$MAIN_DIR/
 pwd
 ls
 python3 -m venv env
