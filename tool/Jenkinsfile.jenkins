@@ -40,9 +40,12 @@ node ("master") {
             }
           stage("docker push") {
             echo " ============== start pushing image =================="
-            sh """
-            docker push $DOCKER_HUB_REPO/$IMAGE_NAME:latest
+            sh "chmod +x -R ${env.WORKSPACE}"
+            dir ('tool/') {
+              sh """
+            ./dpush.sh
             """
+               }
             }
         stage ("scan image"){
             echo " ============== scan image =================="
@@ -60,18 +63,20 @@ node ("master") {
           } 
         stage('del image') {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                sh "chmod +x -R ${env.WORKSPACE}"
+                    dir ('tool/') {    
                 sh """
-                ssh -t root@prodstage "hostname; docker stop $IMAGE_NAME; docker rm $IMAGE_NAME; docker image prune -f"
+                 ./ddel.sh
                 """
-                } 
+                    }
+                    } 
             }
         stage("run docker") {
                 echo " ============== prepare host =================="
                 sh "chmod +x -R ${env.WORKSPACE}"
                     dir ('tool/') {                             
                 sh """ 
-                    ssh -t root@prodstage "hostname; docker pull $DOCKER_HUB_REPO/$IMAGE_NAME; docker run --name $IMAGE_NAME -d -p 80:80 $DOCKER_HUB_REPO/$IMAGE_NAME:latest"
-                    sleep 5
+                ./drun.sh
                 """
                 }
             }    
