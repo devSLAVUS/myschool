@@ -1,6 +1,6 @@
 #!/bin/bash
 cd ..
-cd django_school/
+cd $MAIN_DIR/
 pwd
 ls
 python3 -m venv env
