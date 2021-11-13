@@ -1,6 +1,6 @@
 #!/bin/bash
 post="200"
-source ~/load_env.sh
+source /etc/environment.d/jenenv.conf
 echo $PROD
 zapros=`curl -I $PROD | awk 'NR == 1{print$2}'`
 echo $zapros
