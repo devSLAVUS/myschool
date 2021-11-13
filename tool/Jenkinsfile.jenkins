@@ -34,13 +34,13 @@ node ("master") {
         stage("docker build") {
             echo " ============== start building image =================="
             dir ('django_school/') {
-            sh 'docker build -t devslavus/myschool:latest . '
+            sh 'docker build -t $DOCKER_HUB_REPO:latest . '
                 }    
             }
           stage("docker push") {
             echo " ============== start pushing image =================="
             sh '''
-            docker push devslavus/myschool:latest
+            docker push $DOCKER_HUB_REPO:latest
             '''
             }
         stage ("scan image"){
@@ -69,7 +69,7 @@ node ("master") {
                 sh "chmod +x -R ${env.WORKSPACE}"
                     dir ('tool/') {                             
                 sh '''  
-                    ssh -t root@prodstage "hostname; docker pull devslavus/myschool; docker run --name myschool -d -p 80:80 devslavus/myschool:latest"
+                    ssh -t root@prodstage "hostname; docker pull $DOCKER_HUB_REPO; docker run --name myschool -d -p 80:80 $DOCKER_HUB_REPO:latest"
                     sleep 5
                 '''
                 }
