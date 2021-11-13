@@ -20,7 +20,17 @@ node ("master") {
                 docker login -u $USERNAME -p $PASSWORD                
                 """
                 }
-            }        
+            }
+        stage("test build") {
+            echo " ============== test build =================="
+            sh "chmod +x -R ${env.WORKSPACE}"
+            dir ('tool/') {
+            sh '''
+            ./djangotest.sh
+            '''    
+                }
+            cobertura coberturaReportFile: 'django_school/reports/coverage.xml'
+        }  
         stage("docker build") {
             echo " ============== start building image =================="
             dir ('django_school/') {
