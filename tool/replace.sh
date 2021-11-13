@@ -7,7 +7,7 @@ echo "pass"
 read pass
 echo "install plugins..."
 for package in ant blueocean blueocean-autofavorite build-timeout\
- htmlpublisher email-ext\
+ htmlpublisher cobertura email-ext\
  timestamper pipeline-github-lib;\
 do sudo sh -c "sudo java -jar /var/cache/jenkins/war/WEB-INF/lib/cli-2.303.3.jar -s http://$ipserv:8080 -auth $user:$pass install-plugin $package >> /tmp/status.txt"; done;  
 systemctl restart jenkins.service
