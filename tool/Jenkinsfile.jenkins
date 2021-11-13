@@ -35,7 +35,7 @@ node ("master") {
             echo " ============== start building image =================="
             sh "chmod +x -R ${env.WORKSPACE}"
             dir ('tool/') {
-            sh "./dbuild"
+            sh "./dbuild.sh"
                 }    
             }
           stage("docker push") {
