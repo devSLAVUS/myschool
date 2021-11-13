@@ -34,7 +34,7 @@ node ("master") {
         stage("docker build") {
             echo " ============== start building image =================="
             sh ''
-            dir ('$MAIN_DIR/') {
+            dir ("$MAIN_DIR/") {
             sh "docker build -t $DOCKER_HUB_REPO/$IMAGE_NAME:latest . "
                 }    
             }
