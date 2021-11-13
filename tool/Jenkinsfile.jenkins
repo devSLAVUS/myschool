@@ -33,9 +33,9 @@ node ("master") {
         }  
         stage("docker build") {
             echo " ============== start building image =================="
-            sh 'source /etc/environment.d/jenenv.conf'
-            dir ("$MAIN_DIR/") {
-            sh "docker build -t $DOCKER_HUB_REPO/$IMAGE_NAME:latest . "
+            sh "chmod +x -R ${env.WORKSPACE}"
+            dir ('tool/') {
+            sh "./dbuild"
                 }    
             }
           stage("docker push") {
