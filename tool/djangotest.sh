@@ -1,5 +1,4 @@
 #!/bin/bash
-cd ..
 cd $MAIN_DIR/
 pwd
 ls
