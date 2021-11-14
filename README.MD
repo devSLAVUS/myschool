@@ -39,9 +39,9 @@ chmod +x replace.sh
 Теперь можно запускать задачу, двумя способами
 1. Через веб интерфейс дженкинса
 2. С помощью скрипта:
-cd myschool/tool/
-chmod +x runjob.sh
-./runjob.sh
+cd myschool/tool/  
+chmod +x runjob.sh  
+./runjob.sh  
 ## Структура:  
 * Простое веб приложение написанное на python размещено: `django_school/`
 * Jenkins-скрипт и вспомогательные скрипты: `tool/`  
