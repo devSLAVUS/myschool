@@ -13,7 +13,7 @@ git clone https://github.com/devSLAVUS/myschool.git
 `cd myschool/tool/`  
 4. Разрешите выполнение  
 `chmod +x alin.sh`  
-5. Запустите  
+5. Запустите    
 `./alin.sh` 
 
 Данный скрипт установит все необходимое: sudo, 
