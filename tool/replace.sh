@@ -41,7 +41,7 @@ echo "Введите ваш логин от dockerhub'а (devslavus)"
 read docker_user
 echo "Введите ваш пароль от dockerhub'а"
 read docker_pass
-DTOKEN="da950e95-9d26-488c-9a83-3b848751af83"
+DTOKEN=da950e95-9d26-488c-9a83-3b848751af83
 echo "DTOKEN=$DTOKEN" >> /etc/environment.d/jenenv.conf
 echo "MAIN_DIR=$MAIN_DIR" >> /etc/environment.d/jenenv.conf
 sed -e "s|hhhvbn|${git}|g" -e "s|zxcggg|${path}|g" dep.xml > defin.xml
