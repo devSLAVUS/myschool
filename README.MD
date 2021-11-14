@@ -6,15 +6,15 @@
 1. На вторую VM выступающую в роли клиента требуется установить систему и открыть ssh доступ для пользователя root
 ## На сервере для дженкинса:
 1. Установите git:  
-apt install git  
+`apt install -y git`  
 2. Склонируйте репозиторий:  
 git clone https://github.com/devSLAVUS/myschool.git
 3. перейдите в папку со вспомогательными  скриптами 
-cd myschool/tool/  
+`cd myschool/tool/`  
 4. Разрешите выполнение  
-chmod +x alin.sh  
+`chmod +x alin.sh`  
 5. Запустите  
-./alin.sh  
+`./alin.sh` 
 
 Данный скрипт установит все необходимое: sudo, 
 python3-venv, pip, django, txt2html, java, curl, docker, jenkins
@@ -28,20 +28,20 @@ python3-venv, pip, django, txt2html, java, curl, docker, jenkins
 После действий выше перезагрузите сервер
 ## После перезагрузки:  
 1. Перейдите в папку со вспомогательными  скриптами  
-cd myschool/tool/
+`cd myschool/tool/`
 2. Разрешите выполнение  
-chmod +x replace.sh
+`chmod +x replace.sh`
 3. Запустите
-./replace.sh
+`./replace.sh`
 4. И следуйте инструкциям
 Данный скрипт подготовит задачу в дженкинсе, потребуется указать ваши данные, в некоторых пунктах будут подсказки в скобках, используйте их если собираете данный репозиторий, а не свой собственный
 ## Запуск задачи jenkins
 Теперь можно запускать задачу, двумя способами
 1. Через веб интерфейс дженкинса
-2. С помощью скрипта:
-cd myschool/tool/  
-chmod +x runjob.sh  
-./runjob.sh  
+2. С помощью скрипта:  
+`cd myschool/tool/`  
+`chmod +x runjob.sh`  
+`./runjob.sh`  
 ## Структура:  
 * Простое веб приложение написанное на python размещено: `django_school/`
 * Jenkins-скрипт и вспомогательные скрипты: `tool/`  
