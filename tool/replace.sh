@@ -1,9 +1,9 @@
 #!/bin/bash
-echo "ipaddress"
+echo "Введите ip адрес вашего сервера"
 read ipserv
-echo "user"
+echo "Введите имя пользователя для дженкинс"
 read user
-echo "pass"
+echo "Ввведите пароль для дженкинс"
 read pass
 echo "install plugins..."
 for package in ant blueocean blueocean-autofavorite build-timeout\
