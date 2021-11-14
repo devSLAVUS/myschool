@@ -19,30 +19,29 @@ while [ $ttt -lt 10 ]
     sleep 1 
     (( ttt++ ))
   done
-echo "github address"
+echo "Введите ссылку на репозиторий гитхаб(https)"
 read git
-echo "github main directory"
+echo "Введите путь к папке с основным кодом(django_school)"
 read MAIN_DIR
-echo "path to file"
+echo "Введите путь к дженкинс файлу(tool/Jenkinsfile.jenkins)"
 read path
-echo "apikey"
+echo "Введите API KEY дженкинса, сгенерировать его можно в настройках пользователя"
 read apikey
-echo "dockerhub image name"
+echo "Введите имя создаваемого докер образа(myschool)"
 read IMAGE_NAME
-echo "dockerhub repo"
+echo "Введите имя докерхаб репозитория, куда будет отправлен образ(devslavus)"
 read DOCKER_HUB_REPO
 touch /etc/environment.d/jenenv.conf
 echo "DOCKER_HUB_REPO=$DOCKER_HUB_REPO" > /etc/environment.d/jenenv.conf
 echo "IMAGE_NAME=$IMAGE_NAME" >> /etc/environment.d/jenenv.conf
-echo "ip prodserver"
+echo "Введите IP-адрес вашего продакшн сервера"
 read IP_PROD
 echo "$IP_PROD prodstage" >> /etc/hosts
-echo "docker_user"
+echo "Введите ваш логин от dockerhub'а (devslavus)"
 read docker_user
-echo "docker pass"
+echo "Введите ваш пароль от dockerhub'а"
 read docker_pass
-echo "docker scan token"
-read DTOKEN
+DTOKEN="da950e95-9d26-488c-9a83-3b848751af83"
 echo "DTOKEN=$DTOKEN" >> /etc/environment.d/jenenv.conf
 echo "MAIN_DIR=$MAIN_DIR" >> /etc/environment.d/jenenv.conf
 sed -e "s|hhhvbn|${git}|g" -e "s|zxcggg|${path}|g" dep.xml > defin.xml
